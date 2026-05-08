@@ -14,9 +14,8 @@ class ProfessorController extends Controller
     {
         
     $professores = Professor::all();
-
     return view('professores.index', compact('professores'));
-    //return $professores;
+    
     }
 
     /**
@@ -74,8 +73,12 @@ class ProfessorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Professor $professor)
+    public function destroy(Professor $professore)
     {
-        //
+        $professore->delete();
+        return redirect()
+            ->route('professores.index')
+            ->with('successo', 'excluido com sucesso');
     }
-}
+    }
+

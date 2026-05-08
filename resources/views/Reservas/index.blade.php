@@ -19,6 +19,17 @@
             
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <a href="{{ route('salas.index') }}" class="bg-white p-6 rounded-lg shadow hover:shadow-md transition text-center border-b-4 border-teal-400">
+                <span class="block text-2xl mb-2">👨‍🏫</span>
+                <span class="font-bold text-teal-600"> Salas</span>
+            </a>
+
+            
+        </div>
+
+
+
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <div class="p-4 border-b bg-gray-50">
                 <h2 class="font-bold text-gray-700">Reservas Agendadas</h2>

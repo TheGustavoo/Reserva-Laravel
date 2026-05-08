@@ -12,7 +12,8 @@ class SalaController extends Controller
      */
     public function index()
     {
-        //
+        $salas = Sala::all();
+        return view('salas.index', compact('salas'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SalaController extends Controller
      */
     public function create()
     {
-        return view('reservas.create');
+        return view('salas.create');
     }
 
     /**
@@ -28,7 +29,18 @@ class SalaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $sala= new Sala;
+            $sala->fill($request->all());
+            $sala->save();
+            return redirect()
+                ->route('salas.index')
+                ->with('successo', 'sala salva com sucesso!');    
+        }
+        catch (Exception $e) {
+            return 'Houve um erro no banco de dados';
+        }
     }
 
     /**
@@ -60,6 +72,11 @@ class SalaController extends Controller
      */
     public function destroy(Sala $sala)
     {
-        //
+        {
+        $sala->delete();
+        return redirect()
+            ->route('salas.index')
+            ->with('successo', 'excluido com sucesso');
+    }
     }
 }
