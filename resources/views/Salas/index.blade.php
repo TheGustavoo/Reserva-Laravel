@@ -12,9 +12,15 @@
 <body class="bg-light">
 
     <div class="container mt-5">
+         <div class="d-flex align-items-center mb-4">
+            <a href="{{ route('reservas.index') }}" class="btn btn-link text-decoration-none p-0 me-3">
+                <i class="bi bi-arrow-left fs-4"></i>
+            </a>
+            <h2 class="fw-light mb-0">Salas Cadastradas</h2>
+        </div>
         <div class="card shadow">
+
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h3 class="mb-0">Salas Cadastradas</h3>
                 <a href="{{ route('salas.create') }}" class="btn btn-light btn-sm">Nova Sala</a>
                 
                 
@@ -38,7 +44,7 @@
                             <td>{{ $sala->capacidade }}</td>
                             <td class="text-center">
 
-                                <a href="#" class="btn btn btn-link btn-sm"><i class="bi bi-pencil-square"></i> </a> 
+                                <a href="#" class="btn btn btn-link btn-sm"><i class="bi bi-pencil-square"></i></a> 
 
                                 <form action="{{ route('salas.destroy', $sala->id) }}" method="POST" style="display:inline;">@csrf @method('DELETE') <button type="submit" class="btn btn-link text-danger p-1" onclick="return confirm('Tem certeza que deseja excluir?')"><i class="bi bi-trash"></i></button></form>
                                 

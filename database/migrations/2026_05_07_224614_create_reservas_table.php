@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            // Liga com a tabela salas
+            
             $table->foreignId('sala_id')->constrained('salas')->onDelete('cascade');
-            // Liga com a tabela de professores
+            
             $table->foreignId('professor_id')->constrained('professores')->onDelete('cascade');
             $table->date('data_reserva');
             $table->time('hora_inicio');

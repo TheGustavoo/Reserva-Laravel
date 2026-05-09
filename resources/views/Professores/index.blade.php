@@ -12,10 +12,18 @@
 <body class="bg-light">
 
     <div class="container mt-5">
+        <div class="d-flex align-items-center mb-4">
+            <a href="{{ route('reservas.index') }}" class="btn btn-link text-decoration-none p-0 me-3">
+                <i class="bi bi-arrow-left fs-4"></i>
+            </a>
+            <h2 class="fw-light mb-0">Professores Cadastrados</h2>
+        </div>
+        
         <div class="card shadow">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h3 class="mb-0">Professores Cadastrados</h3>
                 <a href="{{ route('professores.create') }}" class="btn btn-light btn-sm">Novo Professor</a>
+                
+                
             </div>
             
             <div class="card-body">

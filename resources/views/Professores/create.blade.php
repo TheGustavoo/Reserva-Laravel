@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 <div class="container mt-5">
-    <h2 class="mb-4">Cadastrar Novo Professor</h2>
+    <h2 class="fw-light mb-0">Cadastrar <span class="fw-bold">Novo Professor</span></h2>
 
     <form action="{{ route('professores.store') }}" method="POST" class="row g-3 p-4 bg-white shadow rounded">
         @csrf

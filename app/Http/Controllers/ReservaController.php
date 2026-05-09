@@ -22,7 +22,12 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        return view('salas.create');
+
+        $professores = \App\Models\Professor::all();
+        $salas = \App\Models\Sala::all();
+
+    
+        return view('reservas.create', compact('professores', 'salas'));
     }
 
     /**
@@ -30,7 +35,18 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $reserva= new Reserva;
+            $reserva->fill($request->all());
+            $reserva->save();
+            return redirect()
+                ->route('reservas.index')
+                ->with('successo', 'reserva salvo com sucesso!');    
+        }
+        catch (Exception $e) {
+            return 'Houve um erro no banco de dados';
+        }
     }
 
     /**
@@ -62,6 +78,9 @@ class ReservaController extends Controller
      */
     public function destroy(Reserva $reserva)
     {
-        //
+        $reserva->delete();
+        return redirect()
+            ->route('reservas.index')
+            ->with('successo', 'excluido com sucesso');
     }
 }

@@ -3,7 +3,8 @@
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 <div class="container mt-5">
-    <h2 class="mb-4">Cadastrar Nova Sala</h2>
+    
+     <h2 class="fw-light mb-0">Cadastrar <span class="fw-bold">Nova Sala</span></h2>
 
     <form action="{{ route('salas.store') }}" method="POST" class="row g-3 p-4 bg-white shadow rounded">
         @csrf
