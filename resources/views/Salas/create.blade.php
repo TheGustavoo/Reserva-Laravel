@@ -10,8 +10,8 @@
         @csrf
 
          <div class="col-md-8">
-                        <label class="form-label">Nome da Sala / Laboratório</label>
-                        <input type="text" name="nome" class="form-control" placeholder="Ex: Laboratório de Informática 01" required>
+                        <label class="form-label">Descrição da Sala / Laboratório</label>
+                        <input type="text" name="descricao" class="form-control" placeholder="Ex: Laboratório de Informática 01" required>
                     </div>
 
                     <div class="col-md-4">

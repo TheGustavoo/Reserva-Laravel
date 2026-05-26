@@ -11,7 +11,9 @@ class Reserva extends Model
         'sala_id', 
         'data_reserva', 
         'hora_inicio', 
-        'hora_fim'
+        'hora_fim',
+        'equipamento_id'
+
     ];
 
     public function professor() {
@@ -20,5 +22,9 @@ class Reserva extends Model
 
     public function sala() {
         return $this->belongsTo(Sala::class);
+    }
+
+    public function equipamento() {
+        return $this->belongsTo(Equipamento::class);
     }
 }
