@@ -54,29 +54,45 @@ class SalaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sala $sala)
+    public function edit($id)
     {
-        //
+        $sala = \App\Models\Sala::findOrFail($id);
+        return view('salas.edit', compact('sala'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sala $sala)
+    public function update(Request $request, String $id)
     {
-        //
-    }
+       $request->validate([
+            'descricao' => 'required|string|max:255',
+            'capacidade' => 'required|integer|min:1',
+        ], [
+            'descricao.required' => 'A descrição da sala é obrigatória.',
+            'capacidade.required' => 'A capacidade da sala é obrigatória.',
+            'capacidade.min' => 'A capacidade deve ser de pelo menos 1 pessoa.',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Sala $sala)
-    {
-        {
-        $sala->delete();
-        return redirect()
-            ->route('salas.index')
-            ->with('successo', 'excluido com sucesso');
-    }
+        // 2. Tenta atualizar o registro no banco de dados
+        try {
+            // Busca o registro original
+            $sala = \App\Models\Sala::findOrFail($id);
+            
+            // Atualiza os dados usando Mass Assignment
+            $sala->update($request->all());
+
+            // Redireciona para a listagem com a mensagem de sucesso
+            return redirect()
+                ->route('salas.index')
+                ->with('successo', 'Sala atualizada com sucesso!');
+
+        } catch (\Exception $e) {
+            // Se der algum erro de banco, volta para a tela anterior mantendo o que o usuário digitou
+            return back()
+                ->withInput()
+                ->with('erro', 'Erro ao atualizar a sala: ' . $e->getMessage());
+        }
     }
 }
+

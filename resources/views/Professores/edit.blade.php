@@ -8,56 +8,218 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7fe;
+            color: #1e293b;
+        }
+
+        /* Botão de Voltar (Topo) */
+        .back-icon {
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #475569;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .back-icon:hover {
+            transform: translateX(-5px);
+            color: #4338ca;
+            box-shadow: 0 10px 15px -3px rgba(67, 56, 202, 0.15);
+        }
+
+        /* Card Principal */
+        .card-custom {
+            background: #ffffff;
+            border: none;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+            padding: 3.5rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Detalhe de cor no topo do card */
+        .card-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4338ca, #818cf8);
+        }
+
+        /* Estilo dos Rótulos (Labels) */
+        .form-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Estilo das Caixas de Texto (Inputs) */
+        .form-control {
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 2px solid #f1f5f9;
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: none;
+        }
+        
+        .form-control:focus {
+            background-color: #ffffff;
+            border-color: #818cf8;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+        }
+
+        /* Hint Text (Texto de Ajuda) */
+        .hint-text {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Botões de Ação do Formulário */
+        .btn-action-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background-color: #f1f5f9;
+            color: #475569;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+        .btn-cancel:hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .btn-save {
+            flex: 2;
+            background: linear-gradient(135deg, #4338ca, #4f46e5);
+            color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.25);
+        }
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 56, 202, 0.4);
+            color: white;
+        }
+    </style>
 </head>
-<body class="bg-light p-4 p-md-5">
+<body class="p-4 p-md-5 d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
-    <div class="container" style="max-width: 700px;">
-        <div class="d-flex align-items-center mb-4">
-            <a href="{{ route('professores.index') }}" class="text-dark text-decoration-none me-3">
-                <i class="bi bi-arrow-left fs-4"></i>
+    <div class="container" style="max-width: 550px; width: 100%;">
+        
+        <div class="d-flex align-items-center mb-4 pb-2">
+            <a href="{{ route('professores.index') }}" class="back-icon me-4" title="Voltar para a lista">
+                <i class="bi bi-arrow-left fs-5"></i>
             </a>
-           <h3 class="fw-normal mb-0 text-dark">Editar <span class="fw-bold">Professor #{{ $professor->id }}</span></h3>
-        </div>
-
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4 py-5">
-                <form action="{{ route('professores.update', $professor->id) }}" method="POST">
-                    @csrf
-                    @method('PUT') <div class="row g-4">
-                        <div class="col-12">
-                            <label for="nome" class="form-label fw-medium text-dark mb-1">Nome Completo</label>
-                            <input type="text" name="nome" id="nome" class="form-control" value="{{ $professor->nome }}" required>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="materia" class="form-label fw-medium text-dark mb-1">Matéria / Disciplina</label>
-                            <input type="text" name="materia" id="materia" class="form-control" value="{{ $professor->materia }}" required>
-                        </div>
-
-                        <div class="col-12 mt-4 pt-2">
-                            <button type="submit" class="btn btn-primary px-4 fw-medium shadow-sm me-2">
-                                <i class="bi bi-arrow-clockwise me-1"></i> Atualizar
-                            </button>
-                            <a href="{{ route('professores.index') }}" class="btn btn-light px-4 fw-medium border text-decoration-none">Cancelar</a>
-                        </div>
-                    </div>
-                </form>
+            <div>
+                <p class="text-secondary mb-1 fw-bold text-uppercase" style="font-size: 0.75rem; letter-spacing: 1px; color: #64748b;">Atualização de Registro</p>
+                <h2 class="fw-bold mb-0 text-dark" style="letter-spacing: -0.5px;">
+                    Editar <span style="color: #4338ca;">Docente #{{ str_pad($professor->id, 4, '0', STR_PAD_LEFT) }}</span>
+                </h2>
             </div>
         </div>
+
+        <div class="card-custom">
+            <form action="{{ route('professores.update', $professor->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <div class="row g-4">
+                    <div class="col-12">
+                        <label for="nome" class="form-label">
+                            <i class="bi bi-person-badge fs-6 text-primary opacity-75"></i> Nome do Docente
+                        </label>
+                        <input type="text" name="nome" id="nome" class="form-control" value="{{ $professor->nome }}" placeholder="Ex: João da Silva" required autocomplete="off">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="materia" class="form-label">
+                            <i class="bi bi-book fs-6 text-primary opacity-75"></i> Matéria / Disciplina Principal
+                        </label>
+                        <input type="text" name="materia" id="materia" class="form-control" value="{{ $professor->materia }}" placeholder="Ex: Matemática Avançada" required autocomplete="off">
+                        <div class="hint-text">
+                            <i class="bi bi-info-circle"></i> Área de especialidade atualizada no currículo.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="btn-action-group">
+                            <a href="{{ route('professores.index') }}" class="btn-cancel">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn-save">
+                                <i class="bi bi-check2-circle fs-5"></i> Atualizar Dados
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-<script>
+
+    <script>
     @if ($errors->any())
         Swal.fire({
             icon: 'error',
-            title: 'Ops! Algo está incorreto.',
+            title: 'Ops! Verifique os dados.',
             html: `
-                <ul style="text-align: left;">
+                <ul style="text-align: left; color: #475569; font-family: 'Inter', sans-serif; margin-bottom: 0; padding-left: 1.5rem;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             `,
-            confirmButtonColor: '#0d6efd'
+            confirmButtonColor: '#4338ca',
+            customClass: { popup: 'rounded-4' }
         });
     @endif
 
@@ -66,7 +228,8 @@
             icon: 'warning',
             title: 'Atenção!',
             text: "{{ session('erro') }}",
-            confirmButtonColor: '#0d6efd'
+            confirmButtonColor: '#4338ca',
+            customClass: { popup: 'rounded-4' }
         });
     @endif
     </script>
